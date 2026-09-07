@@ -1,0 +1,8 @@
+body { background-color: #f8f9fa; }
+.navbar-brand { font-weight: 600; }
+.navbar-logo { height: 40px; width: auto; }
+.tag-list a { display: block; padding: 0.25rem 0; color: #495057; text-decoration: none; }
+.tag-list a:hover, .tag-list a.active { color: #0d6efd; text-decoration: underline; }
+.tag-list .submenu a { padding-left: 0.75rem; font-size: 0.9rem; }
+.tag-list .submenu a.disabled { color: #adb5bd; pointer-events: none; }
+.example-card .jxgbox { height: 500px; }
