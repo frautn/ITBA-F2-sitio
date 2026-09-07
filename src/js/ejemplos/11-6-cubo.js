@@ -23,7 +23,20 @@ var pol = board.create('polygon', [a, b, c, d], {
 });
 
 
-var n_2 = board.create('slider', [[-4, -4], [-2, -4], [1, 1, 3]], { name: 'n_2', snapWidth: 0.01 });
+let n_2 = 1;
+const n_2Min = 1, n_2Max = 3, n_2Step = 0.01;
+
+board.create('button', [-4, 0, '+', function () {
+    n_2 = Math.min(n_2Max, +(n_2 + n_2Step).toFixed(2));
+    board.update();
+}]);
+
+board.create('text', [-4, -0.5, () => `n_2 = ${n_2.toFixed(2)}`], { fontSize: 20 });
+
+board.create('button', [-4, -1, '-', function () {
+    n_2 = Math.max(n_2Min, +(n_2 - n_2Step).toFixed(2));
+    board.update();
+}]);
 
 // Incident ray
 var r1a = board.create('point', [
@@ -37,7 +50,7 @@ const r1Mid = board.create('midpoint', [r1a, r1b], { visible: false });
 var r1 = board.create('arrow', [r1a, r1Mid], { strokeColor: 'orange', strokeWidth: 4 });
 var r1 = board.create('segment', [r1Mid, r1b], { strokeColor: 'orange', strokeWidth: 4 });
 
-var t = () => Math.asin((1 / n_2.Value()) * Math.sin(30 * Math.PI / 180));
+var t = () => Math.asin((1 / n_2) * Math.sin(30 * Math.PI / 180));
 
 var r2by = () => -1 * offset / Math.tan(t());
 
@@ -48,7 +61,7 @@ var r2b = board.create('point', [
 
 var r2 = board.create('segment', [r1b, r2b], { strokeColor: 'orange', strokeWidth: 4 });
 
-var r3by = () => -2 * Math.tan(Math.asin(n_2.Value() * Math.cos(t())));
+var r3by = () => -2 * Math.tan(Math.asin(n_2 * Math.cos(t())));
 
 var r3b = board.create('point', [
                -2.0,
