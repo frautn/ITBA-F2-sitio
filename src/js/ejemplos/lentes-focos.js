@@ -60,16 +60,14 @@ var focus = board.create('point', [focalX, 0], {
 
 const rayHeights = [-2, -1, 0, 1, 2];
 rayHeights.forEach((y) => {
-	const surfaceOffset = lensMaxWidth * Math.sqrt(1 - (y * y) / (lensHalfHeight * lensHalfHeight));
-	const entry = board.create('point', [-surfaceOffset, y], { visible: false, fixed: true });
-	const exitY = y * (focalX - surfaceOffset) / (focalX + surfaceOffset);
-	const exit = board.create('point', [surfaceOffset, exitY], { visible: false, fixed: true });
+	const bend = board.create('point', [0, y], { visible: false, fixed: true });
 	const start = board.create('point', [-6.3, y], { visible: false, fixed: true });
-	const end = board.create('point', [7.0, y], { visible: false, fixed: true });
+	const endX = 7.0;
+	const endY = y * (focalX - endX) / focalX;
+	const end = board.create('point', [endX, endY], { visible: false, fixed: true });
 
-	board.create('segment', [start, entry], { strokeColor: rayColor, strokeWidth: 2 });
-	board.create('segment', [entry, exit], { strokeColor: rayColor, strokeWidth: 2 });
-	board.create('segment', [exit, focus], { strokeColor: rayColor, strokeWidth: 2 });
+	board.create('segment', [start, bend], { strokeColor: rayColor, strokeWidth: 2 });
+	board.create('segment', [bend, focus], { strokeColor: rayColor, strokeWidth: 2 });
 	board.create('arrow', [focus, end], { strokeColor: rayColor, strokeWidth: 2 });
 });
 
